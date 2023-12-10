@@ -49,10 +49,16 @@ const isValidNumber = (number) => /^\d+$/.test(number);
 app.post('/api/search', (req, res) => {
     const { email, number } = req.body;
 
-    console.log('Search criteria:', { email, number });
-
     if (!email && !number) {
         return res.status(400).json({ error: 'Missing required fields: email and number' });
+    }
+
+    if (!email) {
+        return res.status(400).json({ error: 'Missing required fields: email' });
+    }
+
+    if (!number) {
+        return res.status(400).json({ error: 'Missing required fields: number' });
     }
 
     if (email && !isValidEmail(email)) {
